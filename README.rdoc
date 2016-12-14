@@ -34,6 +34,9 @@ corrected a few syntax errors.
   end
   zbx.send_stop(:"com.yammer.cron.birthday_email_job")
 
+=== other
+
+  zbx = Zabbix::Sender.new(config_file: nil) # uses the default config file on the system
 
 == Note on Patches/Pull Requests
  
