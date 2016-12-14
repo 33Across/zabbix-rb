@@ -61,7 +61,7 @@ module Zabbix::Agent
     end 
 
     def self.read(zabbix_conf_file=nil)
-      zabbix_conf_file ||= "/etc/zabbix/zabbix-agentd.conf"
+      zabbix_conf_file ||= "/etc/zabbix/zabbix_agentd.conf"
       zabbix_conf        = {} 
 
       File.open(zabbix_conf_file).each do |line|
