@@ -7,7 +7,7 @@ class Zabbix::Sender
   def initialize(opts={})
     @client_host = Socket.gethostbyname(Socket.gethostname)[0]
 
-    if opts[:config_file]
+    if opts.has_key? :config_file
       config = Zabbix::Agent::Configuration.read(opts[:config_file])
       @server_host  = config.server
       @server_port  = config.server_port || DEFAULT_SERVER_PORT
