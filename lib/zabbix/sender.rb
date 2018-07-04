@@ -119,7 +119,7 @@ class Zabbix::Sender
       #Return status with info from socket
       #Caller is expected to handle response when using this option
       #Called from `send_data_verbose`
-      return  response.merge!("info" => response["info"].split(";").map(&:strip).collect{|a| a.split(": ")}.to_h)
+      return  response.merge!("info" => response["info"].split(";").map(&:strip).collect{|status_str| status_str.split(": ")}.inject({}) {|ha, (k, v)| ha[k] = v; ha})
     else
       return true if response['response'] == 'success'
     end
