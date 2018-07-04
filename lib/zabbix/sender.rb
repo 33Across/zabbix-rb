@@ -64,6 +64,13 @@ class Zabbix::Sender
     ])
   end
 
+  def send_data_verbose(key, value, opts={})
+    return false unless configured?
+    return send_zabbix_request([
+      cons_zabbix_data_element(key, value, opts)
+    ], {verbose: true})
+  end
+
   private
 
   def cons_zabbix_data_element(key, value, opts={})
@@ -75,7 +82,7 @@ class Zabbix::Sender
     }
   end
 
-  def send_zabbix_request(data)
+  def send_zabbix_request(data, options={})
     status  = false
     request = Yajl::Encoder.encode({
       :request => 'agent data' ,
@@ -95,13 +102,27 @@ class Zabbix::Sender
       len      = sock.read(8)
       len      = len.unpack('q').shift
       response = Yajl::Parser.parse(sock.read(len))
-      status   = true if response['response'] == 'success'
+      #response = {"response"=>"success", "info"=>"processed: 0; failed: 1; total: 1; seconds spent: 0.000054"}
+      status = build_status(response, options)
     rescue => e
+      Rails.logger.info "ZabbixError: #{e.message}"
+      Rails.logger.info e.backtrace
       ## FIXME
     ensure
       disconnect
     end
 
     return status
+  end
+
+  def build_status(response, options)
+    if options[:verbose]
+      #Return status with info from socket
+      #Caller is expected to handle response when using this option
+      #Called from `send_data_verbose`
+      return  response.merge!("info" => response["info"].split(";").map(&:strip).collect{|a| a.split(": ")}.to_h)
+    else
+      return true if response['response'] == 'success'
+    end
   end
 end
