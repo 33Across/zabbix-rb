@@ -105,9 +105,8 @@ class Zabbix::Sender
       #response = {"response"=>"success", "info"=>"processed: 0; failed: 1; total: 1; seconds spent: 0.000054"}
       status = build_status(response, options)
     rescue => e
-      Rails.logger.info "ZabbixError: #{e.message}"
-      Rails.logger.info e.backtrace
-      ## FIXME
+      Zabbix.logger.info "Error: #{e.message}"
+      Zabbix.logger.info e.backtrace
     ensure
       disconnect
     end
