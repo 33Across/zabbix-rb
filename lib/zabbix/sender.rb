@@ -64,6 +64,13 @@ class Zabbix::Sender
     ])
   end
 
+  def send_data_verbose(key, value, opts={})
+    return false unless configured?
+    return send_zabbix_request_verbose([
+      cons_zabbix_data_element(key, value, opts)
+    ])
+  end
+
   private
 
   def cons_zabbix_data_element(key, value, opts={})
@@ -77,31 +84,58 @@ class Zabbix::Sender
 
   def send_zabbix_request(data)
     status  = false
-    request = Yajl::Encoder.encode({
-      :request => 'agent data' ,
-      :clock   => Time.now.to_i,
-      :data    => data
-    })
+    request = prepare_request(data)
 
     begin
-      sock = connect
-      sock.write "ZBXD\x01"
-      sock.write [request.size].pack('q')
-      sock.write request
-      sock.flush
-
-      # FIXME: check header to make sure it's the message we expect?
-      header   = sock.read(5)
-      len      = sock.read(8)
-      len      = len.unpack('q').shift
-      response = Yajl::Parser.parse(sock.read(len))
+      socket_response = get_socket_response(request)
+      response = Yajl::Parser.parse(socket_response)
       status   = true if response['response'] == 'success'
     rescue => e
-      ## FIXME
+      Zabbix.logger.info "ZabbixError:" + e.message
     ensure
       disconnect
     end
 
     return status
+  end
+
+  def send_zabbix_request_verbose(data)
+    response  = {}
+    request = prepare_request(data)
+
+    begin
+
+      socket_response = get_socket_response(request)
+      response = Yajl::Parser.parse(socket_response)
+      response.merge!("info" => response["info"].split(";").map(&:strip).collect{|status_str| status_str.split(": ")}.inject({}) {|ha, (k, v)| ha[k] = v; ha})
+    rescue => e
+      Zabbix.logger.info "ZabbixError:" + e.message
+    ensure
+      disconnect
+    end
+
+    return response
+  end
+
+  def prepare_request(data)
+    Yajl::Encoder.encode({
+      :request => 'agent data' ,
+      :clock   => Time.now.to_i,
+      :data    => data
+    })
+  end
+
+  def get_socket_response(request)
+    sock = connect
+    sock.write "ZBXD\x01"
+    sock.write [request.size].pack('q')
+    sock.write request
+    sock.flush
+
+    # FIXME: check header to make sure it's the message we expect?
+    header   = sock.read(5)
+    len      = sock.read(8)
+    len      = len.unpack('q').shift
+    sock.read(len)
   end
 end
