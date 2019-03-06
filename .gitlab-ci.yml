@@ -4,6 +4,7 @@ before_script:
   #hardcoding below to retain 1.9.3-compatible versions
   - gem install -v "< 2" rack #1.6.9 ok, 2.0 requires ruby 2.2.2
   - gem install -v "< 2.5" addressable #2.4.0 ok, 2.5.0 requires public_suffix, which requires ruby 2.1
+  - gem install -v "< 2" jwt #1.5.1 ok, 2.0 requires ruby > 2.1
   - gem install -v "< 2.2.1" jeweler #2.1.2 ok, 2.2.1 requires ruby 2.2.0
   - gem install -v "< 5" activesupport #4.2 ok, 5.0 wants ruby 2.2.2
   - gem install -v "< 12.3" rake #12.2.1 ok, 12.3.0 requires ruby 2
