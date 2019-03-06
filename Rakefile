@@ -8,7 +8,7 @@ begin
     gem.summary     = %Q{send data to zabbix from ruby}
     gem.description = %Q{send data to zabbix from ruby}
     gem.email       = "mknopp@yammer-inc.com"
-    gem.homepage    = "http://github.com/mhat/zabbix"
+    gem.homepage    = "http://github.com/mhat/zabbix-rb"
     gem.authors     = ["Matthew Knopp"]
     #gem.add_dependency "yajl-ruby", ">= 0"
     #gem.add_development_dependency "shoulda", ">= 0"
