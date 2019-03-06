@@ -4,7 +4,7 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name        = "zabbix"
+    gem.name        = "zabbix-33x"
     gem.summary     = %Q{send data to zabbix from ruby}
     gem.description = %Q{send data to zabbix from ruby}
     gem.email       = "mknopp@yammer-inc.com"
