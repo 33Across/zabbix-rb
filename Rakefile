@@ -10,8 +10,8 @@ begin
     gem.email       = "mknopp@yammer-inc.com"
     gem.homepage    = "http://github.com/mhat/zabbix"
     gem.authors     = ["Matthew Knopp"]
-    gem.add_dependency "yajl-ruby", ">= 0"
-    gem.add_development_dependency "shoulda", ">= 0"
+    #gem.add_dependency "yajl-ruby", ">= 0"
+    #gem.add_development_dependency "shoulda", ">= 0"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
