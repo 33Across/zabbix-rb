@@ -1,10 +1,9 @@
 PATH
   remote: .
   specs:
-    zabbix-33x (0.4.1)
+    zabbix-33x (0.4.1.1)
       jeweler
       rake
-      zabbix
 
 GEM
   remote: https://nexus.internal.33across.com/repository/rubygem/
@@ -74,7 +73,6 @@ GEM
     thread_safe (0.3.6)
     tzinfo (1.2.4)
       thread_safe (~> 0.1)
-    zabbix (0.4.0)
 
 PLATFORMS
   ruby
