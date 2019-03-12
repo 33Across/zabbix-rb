@@ -4,60 +4,56 @@ module Zabbix::Agent
       @config = config
     end
 
-    def server
-      @config['Server']
-    end
-
-    def server_port
-      @config['ServerPort']
-    end
+    # From the zabbix_sender 3.0 / 4.0 man page
+    #-c, --config config-file
+    #Use config-file. Zabbix sender reads server details from the agentd configuration file. By default Zabbix sender does not read any configuration file. Absolute path should be specified. Only parameters Hostname, ServerActive, SourceIP, TLSConnect, TLSCAFile, TLSCRLFile, TLSServerCertIssuer, TLSServerCertSubject, TLSCertFile, TLSKeyFile, TLSPSKIdentity and TLSPSKFile are supported. First entry from the ServerActive parameter is used.
 
     def hostname
       @config['Hostname']
     end
 
-    def listen_port
-      @config['ListenPort']
-    end
-
-    def listen_ip
-      @config['ListenIP']
+    def server_active
+      @config['ServerActive']
     end
 
     def source_ip
       @config['SourceIP']
     end
 
-    def start_agents
-      @config['StartAgents']
+    def tls_connect
+      @config['TLSConnect']
     end
 
-    def refresh_active_checks
-      @config['RefreshActiveChecks']
+    def tls_cafile
+      @config['TLSCAFile']
     end
 
-    def disable_active
-      @config['DisableActive']
+    def tls_crl_file
+      @config['TLSCRLFile']
     end
 
-    def enable_remote_commands
-      @config['EnableRemoteCommands']
+    def tls_server_cert_issuer
+      @config['TLSServerCertIssuer']
     end
 
-    def debug_level
-      @config['DebugLevel']
+    def tls_server_cert_subject
+      @config['TLSServerCertSubject']
     end
 
-    def pid_file
-      @config['PidFile']
+    def tls_cert_file
+      @config['TLSCertFile']
     end
 
-    def log_file
-      @config['LogFile']
+    def tls_key_file
+      @config['TLSKeyFile']
     end
 
-    def timeout
-      @config['Timeout']
+    def tls_psk_identity
+      @config['TLSPSKIdentity']
+    end
+
+    def tls_psk_file
+      @config['TLSPSKFile']
     end
 
     def arbitrary(key)

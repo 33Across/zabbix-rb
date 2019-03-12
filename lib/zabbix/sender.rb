@@ -9,8 +9,8 @@ class Zabbix::Sender
 
     if opts.has_key? :config_file
       config = Zabbix::Agent::Configuration.read(opts[:config_file])
-      @server_host  = config.server
-      @server_port  = config.server_port || DEFAULT_SERVER_PORT
+      @server_host  = config.server_active
+      @server_port  = config.arbitrary('ServerPort') || DEFAULT_SERVER_PORT
       @client_host  = config.hostname if config.hostname
     end
 
