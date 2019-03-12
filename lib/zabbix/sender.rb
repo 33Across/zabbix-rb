@@ -119,7 +119,7 @@ class Zabbix::Sender
 
   def prepare_request(data)
     Yajl::Encoder.encode({
-      :request => 'agent data' ,
+      :request => 'sender data' ,
       :clock   => Time.now.to_i,
       :data    => data
     })
