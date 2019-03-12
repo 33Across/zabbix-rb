@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    zabbix-33x (0.5.0)
+    zabbix-33x (0.5.1)
       jeweler
       rake
       yajl-ruby
