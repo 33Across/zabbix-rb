@@ -1,4 +1,4 @@
-source "https://nexus.internal.33across.com/repository/rubygem"
+source "https://rubygems.org"
 
 gem 'rake'
 gem 'jeweler'
