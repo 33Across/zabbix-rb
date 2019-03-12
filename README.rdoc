@@ -50,6 +50,8 @@ corrected a few syntax errors.
 
 == Development notes
 
+* Updated to require 2.3.8+ (currently supported branch minus one)
+
 === Dependencies
 
 * Requires jeweler (tested with 2.1.2) ... once that's installed, the `check_dependencies` rake task will prompt for others
