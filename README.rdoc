@@ -54,7 +54,7 @@ corrected a few syntax errors.
 
 === Dependencies
 
-* Requires juwelier (tested with 2.1.2) ... once that's installed, the `check_dependencies` rake task will prompt for others
+* Requires juwelier (tested with 2.4.9) ... once that's installed, the `check_dependencies` rake task will prompt for others
 
 === Test configuration
 
