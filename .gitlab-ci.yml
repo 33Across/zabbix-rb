@@ -7,7 +7,6 @@ test:
   stage: test
   
   script:
-    - rm Gemfile #funky interaction between Gemfile detection and jeweler
     - rake
   cache:
     paths:

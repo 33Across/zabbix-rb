@@ -1,53 +1,50 @@
+# encoding: utf-8
+
 require 'rubygems'
-require 'rake'
-
+require 'bundler'
 begin
-  require 'jeweler'
-  Jeweler::Tasks.new do |gem|
-    gem.name        = "zabbix-33x"
-    gem.summary     = %Q{send data to zabbix from ruby}
-    gem.description = %Q{send data to zabbix from ruby}
-    gem.email       = "mknopp@yammer-inc.com"
-    gem.homepage    = "http://github.com/mhat/zabbix-rb"
-    gem.authors     = ["Matthew Knopp"]
-    gem.add_dependency "yajl-ruby", ">= 0"
-    #gem.add_development_dependency "shoulda", ">= 0"
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
-  end
-  Jeweler::GemcutterTasks.new
-rescue LoadError
-  puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
+  Bundler.setup(:default, :development)
+rescue Bundler::BundlerError => e
+  $stderr.puts e.message
+  $stderr.puts "Run `bundle install` to install missing gems"
+  exit e.status_code
 end
+require 'rake'
+require 'juwelier'
+Juwelier::Tasks.new do |gem|
+  # gem is a Gem::Specification... see http://guides.rubygems.org/specification-reference/ for more options
+  gem.name = "zabbix-33x"
+  gem.license = "MIT"
+  gem.homepage = "http://github.com/mhat/zabbix-rb"
+  gem.summary = %Q{send data to zabbix from ruby}
+  gem.description = %Q{send data to zabbix from ruby}
+  gem.email = "mknopp@yammer-inc.com"
+  gem.authors = ["Matthew Knopp"]
 
+  # dependencies defined in Gemfile
+end
+Juwelier::RubygemsDotOrgTasks.new
 require 'rake/testtask'
 Rake::TestTask.new(:test) do |test|
-  test.libs    << 'lib' << 'test'
-  test.pattern  = 'test/**/test_*.rb'
-  test.verbose  = true
+  test.libs << 'lib' << 'test'
+  test.pattern = 'test/**/test_*.rb'
+  test.verbose = true
 end
 
-begin
-  require 'rcov/rcovtask'
-  Rcov::RcovTask.new do |test|
-    test.libs    << 'test'
-    test.pattern  = 'test/**/test_*.rb'
-    test.verbose  = true
-  end
-rescue LoadError
-  task :rcov do
-    abort "RCov is not available. In order to run rcov, you must: sudo gem install spicycode-rcov"
-  end
+desc "Code coverage detail"
+task :simplecov do
+  ENV['COVERAGE'] = "true"
+  Rake::Task['test'].execute
 end
-
-task :test => :check_dependencies
 
 task :default => :test
 
 require 'rdoc/task'
 Rake::RDocTask.new do |rdoc|
-  version       = File.exist?('VERSION') ? File.read('VERSION') : ""
+  version = File.exist?('VERSION') ? File.read('VERSION') : ""
+
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title    = "zabbix #{version}"
+  rdoc.title = "zabbix-33x #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
