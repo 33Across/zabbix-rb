@@ -1,4 +1,4 @@
-image: docker.internal.33across.com/ruby:2.3.8 #most recent unsupported version
+image: docker.internal.33across.com/ruby:2.5.9 #most recent unsupported version
 before_script:
   - source /usr/local/rvm/scripts/rvm
   - bundle install #--path vendor/bundle
